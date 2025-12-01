@@ -1,6 +1,6 @@
 <?php
 echo("<<<<<<START>>>>>>");
-define ("token" ,"");
+define ("token" ,"8045689670:AAHSvRh7XB6V8xl4N6O9hyH-xVuavWTqFG0");
 $offset = 0;
 $messages = [
     'welcome'=>'Привет. для получения секретной информации нужно правильно решить пример. Напиши "пример" в чат',
@@ -24,16 +24,14 @@ while(true) {
     foreach ($updates['result'] as $update) {
         $offset = $update['update_id'] + 1;
         
-        // Проверяем наличие message в апдейте
     if (!isset($update['message'])) {
-        continue; // пропускаем апдейты без message
+        continue; 
     }
     
     $message = $update['message'];
     
-    // Проверяем наличие необходимых полей в message
     if (!isset($message['chat']['id']) || !isset($message['text'])) {
-        continue; // пропускаем сообщения без chat id или text
+        continue; 
     }
 
         $chatId = $update['message']['chat']['id'];
@@ -79,7 +77,10 @@ while(true) {
             } elseif($user['authorized'] === 'yes') {
                 sendMessage($chatId, $messages['secret'], token);
             }
-        }else{
+        }elseif($text==="/start"){
+            echo('user start');
+        }
+        else{
             sendMessage($chatId, $messages['unexpected message'], token);
         }
 
